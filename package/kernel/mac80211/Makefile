@@ -9,14 +9,15 @@ include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=mac80211
-
-PKG_VERSION:=2015-07-21
+PKG_VERSION:=2015-11-02
 PKG_RELEASE:=1
-PKG_SOURCE_URL:=http://mirror2.openwrt.org/sources
-PKG_BACKPORT_VERSION:=
-PKG_MD5SUM:=ec529acfb9c942daf8116e5cff47c999
 
-PKG_SOURCE:=compat-wireless-$(PKG_VERSION)$(PKG_BACKPORT_VERSION).tar.bz2
+PKG_SOURCE_URL:=https://github.com/itgb/compat-wireless
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_SUBDIR:=compat-wireless-$(PKG_VERSION)
+PKG_SOURCE_VERSION:=3d3b9451a0fcc5f4b54f5da7617ed5eee8933425
+PKG_SOURCE:=compat-wireless-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.bz2
+
 PKG_BUILD_DIR:=$(KERNEL_BUILD_DIR)/compat-wireless-$(PKG_VERSION)
 PKG_BUILD_PARALLEL:=1
 
