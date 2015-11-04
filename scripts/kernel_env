@@ -1,0 +1,79 @@
+#!/bin/bash
+
+KERNEL_VERSION="4.1"
+BOARD_ENVFILE_PRE="config-"
+BASEDIR="$PWD"
+BOARD_BASEDIR=$BASEDIR"/target/linux"
+BORAD_ENVDIR=$BASEDIR"/kenv"
+
+#board reference to path
+declare -A board_map 
+declare -A kernel_map
+kernel_map["ap_123"]="4.1"
+board_map["ap_123"]="ar71xx" 
+
+kernel_map["ap_124"]="4.1"
+board_map["ap_124"]="ar71"
+#new board add here.
+
+
+usage() {
+	cat <<EOF
+Usage: $0 [options] <command> [arguments]
+Commands:
+	help              This help text
+	set <name>        set a new reference board
+	
+Options:
+
+EOF
+	exit ${1:-1}
+}
+
+kenv_init() {
+	if [ ! -e $BORAD_ENVDIR ];then
+		mkdir -p $BORAD_ENVDIR
+		return
+	fi
+	
+	if [ -L $BORAD_ENVDIR ];then
+		rm $BORAD_ENVDIR
+		mkdir -p $BORAD_ENVDIR
+	fi
+	
+	if [ -d $BORAD_ENVDIR ];then
+		return
+	fi
+}
+
+
+kenv_set() {
+	kenv_init
+	local borad_name="$1"
+	echo "board_name:$borad_name"
+	
+	local src_file="$BORAD_ENVDIR"/"$BOARD_ENVFILE_PRE$borad_name"
+	if ! [ -e $src_file -a -f $src_file ]; then
+		echo "$src_file invalid."
+		return
+	fi
+	echo "s_kernel_env_file:$src_file"
+	
+	local board_path=${board_map[$borad_name]}
+	local ker_version=${kernel_map[$borad_name]}
+	local dst_file="$BOARD_BASEDIR"/"$board_path"/"$BOARD_ENVFILE_PRE$ker_version"
+	if ! [ -e $dst_file -a -f $dst_file ]; then
+		echo "$dst_file invalid."
+		return
+	fi
+	echo "cover $dst_file by $src_file"
+	
+	cp -f "$src_file" "$dst_file"
+}
+
+COMMAND="$1"; shift
+case "$COMMAND" in
+	help) usage 0;;
+	set) kenv_set "$@";;
+	*) usage;;
+esac
