@@ -12,10 +12,10 @@ PKG_NAME:=mac80211
 PKG_VERSION:=2015-11-02
 PKG_RELEASE:=1
 
-PKG_SOURCE_URL:=https://github.com/itgb/compat-wireless
+PKG_SOURCE_URL:=https://github.com/male-puppies/compat-wireless
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_SUBDIR:=compat-wireless-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=3d3b9451a0fcc5f4b54f5da7617ed5eee8933425
+PKG_SOURCE_VERSION:=cdcf8e00b894f420b233307440aa67efea81351f
 PKG_SOURCE:=compat-wireless-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.bz2
 
 PKG_BUILD_DIR:=$(KERNEL_BUILD_DIR)/compat-wireless-$(PKG_VERSION)
