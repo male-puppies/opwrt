@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=mac80211
-PKG_VERSION:=2015-11-02
+PKG_VERSION:=2015-11-05
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=https://github.com/male-puppies/compat-wireless
