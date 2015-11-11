@@ -9,13 +9,13 @@ include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=mac80211
-PKG_VERSION:=2015-11-05
+PKG_VERSION:=2015-11-10
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=https://github.com/male-puppies/compat-wireless
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_SUBDIR:=compat-wireless-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=cdcf8e00b894f420b233307440aa67efea81351f
+PKG_SOURCE_VERSION:=7f5b7b3ab5403cd80474d996e0bbff4f0a32ca5f
 PKG_SOURCE:=compat-wireless-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.bz2
 
 PKG_BUILD_DIR:=$(KERNEL_BUILD_DIR)/compat-wireless-$(PKG_VERSION)
