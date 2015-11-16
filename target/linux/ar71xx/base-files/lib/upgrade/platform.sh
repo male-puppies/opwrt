@@ -175,6 +175,7 @@ platform_check_image() {
 	alfa-nx | \
 	ap113 | \
 	ap121 | \
+	ap152 | \
 	ap121-mini | \
 	ap136-010 | \
 	ap136-020 | \
