@@ -13,4 +13,4 @@ src-git targets https://github.com/openwrt/targets.git
 #src-svn xfce svn://svn.openwrt.org/openwrt/feeds/xfce
 #src-svn lxde svn://svn.openwrt.org/openwrt/feeds/lxde
 #src-link custom /usr/src/openwrt/custom-feed
-src-git ap_apps https://github.com/male-puppies/ap_apps.git
+src-svn ap_apps https://192.168.0.210/svn/ztwk/ap5.0/ap_apps
