@@ -9,10 +9,10 @@ include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=mac80211
-PKG_VERSION:=2015-11-10
+PKG_VERSION:=2015-11-11
 PKG_RELEASE:=1
 
-PKG_SOURCE_VERSION:=2100
+PKG_SOURCE_VERSION:=2109
 PKG_SOURCE:=compat-wireless-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.bz2
 PKG_SOURCE_URL:=https://192.168.0.210/svn/ztwk/ap5.0/compat-wireless
 PKG_SOURCE_SUBDIR:=compat-wireless-$(PKG_VERSION)
