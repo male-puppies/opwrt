@@ -8,8 +8,8 @@ usage() {
 	cat <<EOF
 Usage: $0 [options] <command> [arguments]
 Commands:
-	help              This help text
-	platform <name>   set platform name
+	help              			This help text
+	set <platform> <devname>    set platform name and devname
 	
 Options:
 
@@ -31,6 +31,7 @@ get_upgrade_version() {
 
 platform_set() {
 	local platform="$1"
+	local dev="$2"
 	echo "[platform]":$platform
 	local plat_dir="bin/$platform"
 	if ! [ -d "$plat_dir" ]; then
@@ -51,18 +52,23 @@ platform_set() {
 		return
 	fi
 	echo "[upgrade_bin]:$upgrade_name"
-	local version_name="$upgrade_name.version"
-	local md5sum=`md5sum $plat_dir/$upgrade_name | awk '{print $1}'`
-	echo $upgrade_name
-	echo $upgrade_name > bin/$version_name
+	local src_firmare="$plat_dir/$upgrade_name"
+	local dst_firmware="bin/$dev.$upgrade" 
+	cp -f $src_firmare $dst_firmware
+
+	local version_name="bin/$dev.version"
+	local md5sum=`md5sum $dst_firmware | awk '{print $1}'`
+	echo $dst_firmware
+	echo "$dev.$upgrade" >$version_name
 	echo $md5sum
-	echo $md5sum >> bin/$version_name
-	echo "create bin/$version_name success"
+	echo $md5sum >> $version_name
+	echo "create $version_name success"
+	echo "create $dst_firmware sucess"
 }
 
 COMMAND="$1"; shift
 case "$COMMAND" in
 	help) usage 0;;
-	platform) platform_set "$@";;
+	set) platform_set "$@";;
 	*) usage;;
 esac
