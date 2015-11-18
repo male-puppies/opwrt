@@ -38,7 +38,9 @@ platform_set() {
 		echo "$plat_dir not a directory"
 		return
 	fi
-	
+	echo "del bin/$dev.*"
+	del_file="bin/$dev.*"
+	rm $del_file	
 	local upgrade=$(get_upgrade_version) #call function
 	if ! [ -n "$upgrade" ];then
 		echo "invalid upgrade version"
