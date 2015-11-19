@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #executes this file after "make V=s"
-VERSION_TMP_FILE="bin/opwrt_custome.version"
+VERSION_TMP_FILE="bin/openwrt_custom.version"
 PLATFORM="ar71xx"
 
 usage() {
