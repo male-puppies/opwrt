@@ -3,6 +3,7 @@
 #executes this file after "make V=s"
 VERSION_TMP_FILE="bin/openwrt_custom.version"
 PLATFORM="ar71xx"
+CFG_VERSION_FILE=".config"
 
 usage() {
 	cat <<EOF
@@ -28,6 +29,15 @@ get_upgrade_version() {
 	echo ""
 }
 
+get_release_version() {
+	if [ -e $CFG_VERSION_FILE ];then
+		local release_v=`cat $CFG_VERSION_FILE | grep CONFIG_VERSION_NICK | awk -F \" '{print $2}'`
+		if [ -n "$release_v" ];then
+			echo "$release_v"
+		fi
+	fi
+	echo ""
+}
 
 platform_set() {
 	local platform="$1"
@@ -48,6 +58,13 @@ platform_set() {
 	fi
 	echo "[upgrade_version]:$upgrade"
 	
+	local release_v=$(get_release_version)
+	if ! [ -n "$release_v" ];then
+		echo "invalid release version"
+		return 
+	fi
+	echo "[release_version]:$release_v"
+	
 	local upgrade_name=`ls bin/ar71xx/ | grep upgrade | grep $upgrade`
 	if ! [ -n "$upgrade_name" ];then
 		echo "file name with \"$upgrade\" is not existence."
@@ -55,13 +72,13 @@ platform_set() {
 	fi
 	echo "[upgrade_bin]:$upgrade_name"
 	local src_firmare="$plat_dir/$upgrade_name"
-	local dst_firmware="bin/$dev.$upgrade" 
+	local dst_firmware="bin/$dev.${upgrade}-${release_v}" 
 	cp -f $src_firmare $dst_firmware
 
 	local version_name="bin/$dev.version"
 	local md5sum=`md5sum $dst_firmware | awk '{print $1}'`
 	echo $dst_firmware
-	echo "$dev.$upgrade" >$version_name
+	echo "${dev}.${upgrade}-${release_v}" >$version_name
 	echo $md5sum
 	echo $md5sum >> $version_name
 	echo "create $version_name success"

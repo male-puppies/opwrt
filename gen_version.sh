@@ -51,26 +51,27 @@ version_set() {
 	version_replace $CFG_VERSION_FILE $target $subtarget $time_stamp
 	version_replace $OLD_CFG_VERSION_FILE $target $subtarget $time_stamp
 
-	echo "del build_dir/target-mips_34kc_musl-1.1.11/linux-${target}_${subtarget}/base-files/ipkg-${target}/base-files/etc/openwrt_version"
-	rm "build_dir/target-mips_34kc_musl-1.1.11/linux-${target}_${subtarget}/base-files/ipkg-${target}/base-files/etc/openwrt_version"
-	echo "del build_dir/target-mips_34kc_musl-1.1.11/linux-${target}_${subtarget}/base-files/ipkg-${target}/base-files/etc/openwrt_release"
-	rm "build_dir/target-mips_34kc_musl-1.1.11/linux-${target}_${subtarget}/base-files/ipkg-${target}/base-files/etc/openwrt_release"
+	#echo "del build_dir/target-mips_34kc_musl-1.1.11/linux-${target}_${subtarget}/base-files/ipkg-${target}/base-files/etc/openwrt_version"
+	#rm "build_dir/target-mips_34kc_musl-1.1.11/linux-${target}_${subtarget}/base-files/ipkg-${target}/base-files/etc/openwrt_version"
+	#echo "del build_dir/target-mips_34kc_musl-1.1.11/linux-${target}_${subtarget}/base-files/ipkg-${target}/base-files/etc/openwrt_release"
+	#rm "build_dir/target-mips_34kc_musl-1.1.11/linux-${target}_${subtarget}/base-files/ipkg-${target}/base-files/etc/openwrt_release"
 	
-	echo "del build_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/openwrt_version"
-	rm "build_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/openwrt_version"
+	#echo "del build_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/openwrt_version"
+	#rm "build_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/openwrt_version"
 	
-	echo "del build_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/openwrt_release"
-	rm "build_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/openwrt_release"
+	#echo "del build_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/openwrt_release"
+	#rm "build_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/openwrt_release"
 
-	echo "del build_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/banner"
-	rm "build_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/banner"
+	#echo "del build_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/banner"
+	#rm "build_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/banner"
 	
-	echo "del staging_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/openwrt_version"
-	rm "staging_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/openwrt_version"
+	#echo "del staging_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/openwrt_version"
+	#rm "staging_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/openwrt_version"
 	
-	echo "del staging_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/openwrt_release"
-	rm "staging_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/openwrt_release"
+	#echo "del staging_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/openwrt_release"
+	#rm "staging_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/openwrt_release"
 	#rm "build_dir/target-mips_34kc_musl-1.1.11/linux-${target}_${subtarget}/base-files/ipkg-ar71xx/base-files/etc/banner"
+	touch ./package/base-files/files/etc/openwrt_release 
 }
 
 COMMAND="$1"; shift
