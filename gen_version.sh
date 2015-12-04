@@ -50,8 +50,12 @@ version_set() {
 	echo "will del old openwrt_version & openwrt_release"
 	version_replace $CFG_VERSION_FILE $target $subtarget $time_stamp
 	version_replace $OLD_CFG_VERSION_FILE $target $subtarget $time_stamp
-	#rm "build_dir/target-mips_34kc_musl-1.1.11/linux-${target}_${subtarget}/base-files/ipkg-${target}/base-files/etc/openwrt_version"
-	#rm "build_dir/target-mips_34kc_musl-1.1.11/linux-${target}_${subtarget}/base-files/ipkg-${target}/base-files/etc/openwrt_release"
+
+	echo "del build_dir/target-mips_34kc_musl-1.1.11/linux-${target}_${subtarget}/base-files/ipkg-${target}/base-files/etc/openwrt_version"
+	rm "build_dir/target-mips_34kc_musl-1.1.11/linux-${target}_${subtarget}/base-files/ipkg-${target}/base-files/etc/openwrt_version"
+	echo "del build_dir/target-mips_34kc_musl-1.1.11/linux-${target}_${subtarget}/base-files/ipkg-${target}/base-files/etc/openwrt_release"
+	rm "build_dir/target-mips_34kc_musl-1.1.11/linux-${target}_${subtarget}/base-files/ipkg-${target}/base-files/etc/openwrt_release"
+	
 	echo "del build_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/openwrt_version"
 	rm "build_dir/target-mips_34kc_musl-1.1.11/root-${target}/etc/openwrt_version"
 	
