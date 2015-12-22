@@ -1,0 +1,50 @@
+diff -ruN a/src/ap/ieee802_11.c b/src/ap/ieee802_11.c
+--- a/src/ap/ieee802_11.c	2015-12-19 12:59:46.453365086 +0000
++++ b/src/ap/ieee802_11.c	2015-12-19 15:57:32.331398879 +0000
+@@ -40,7 +40,34 @@
+ #include "wnm_ap.h"
+ #include "ieee802_11.h"
+ #include "dfs.h"
++#include "os.h"
++#include<unistd.h>
++#include<sys/types.h>
++#include<sys/stat.h>
++#include<fcntl.h>
+ 
++int ugw_ratelimit_config_2g = -1;
++int get_ratelimit_config_2g(unsigned channel)
++{   	
++    if (channel > 14 || channel <= 0)
++        return 0;
++	
++    if (ugw_ratelimit_config_2g < 0) {
++        u8 buf[32];		
++		FILE   *fd; 
++		
++		/* 文件不存在也不再读取了 */
++		fd = popen("cat /sys/module/ath9k/parameters/ugw_ath9k_min_rate 2>/dev/null", "r");	
++		fread(buf, 1, 1, fd);
++		pclose(fd);  		
++		ugw_ratelimit_config_2g = atoi(buf);		
++    }
++	
++	/* 只允许返回[0,3] */
++    if (ugw_ratelimit_config_2g < 0 || ugw_ratelimit_config_2g > 3)
++        return 0;
++    return ugw_ratelimit_config_2g;
++}
+ 
+ u8 * hostapd_eid_supp_rates(struct hostapd_data *hapd, u8 *eid)
+ {
+@@ -62,8 +89,9 @@
+ 		num = 8;
+ 	}
+ 
+-	*pos++ = num;
+-	for (i = 0, count = 0; i < hapd->iface->num_rates && count < num;
++	*pos++ = num;	
++	i = get_ratelimit_config_2g(hapd->iconf->channel);
++	for (count = 0; i < hapd->iface->num_rates && count < num;
+ 	     i++) {
+ 		count++;
+ 		*pos = hapd->iface->current_rates[i].rate / 5;
