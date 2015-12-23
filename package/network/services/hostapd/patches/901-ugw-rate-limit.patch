@@ -1,16 +1,17 @@
 diff -ruN a/src/ap/ieee802_11.c b/src/ap/ieee802_11.c
 --- a/src/ap/ieee802_11.c	2015-12-19 12:59:46.453365086 +0000
-+++ b/src/ap/ieee802_11.c	2015-12-19 15:57:32.331398879 +0000
++++ b/src/ap/ieee802_11.c	2015-12-20 08:49:09.796123804 +0000
 @@ -40,7 +40,34 @@
  #include "wnm_ap.h"
  #include "ieee802_11.h"
  #include "dfs.h"
+-
 +#include "os.h"
 +#include<unistd.h>
 +#include<sys/types.h>
 +#include<sys/stat.h>
 +#include<fcntl.h>
- 
++
 +int ugw_ratelimit_config_2g = -1;
 +int get_ratelimit_config_2g(unsigned channel)
 +{   	
@@ -36,15 +37,27 @@ diff -ruN a/src/ap/ieee802_11.c b/src/ap/ieee802_11.c
  
  u8 * hostapd_eid_supp_rates(struct hostapd_data *hapd, u8 *eid)
  {
-@@ -62,8 +89,9 @@
- 		num = 8;
+@@ -63,7 +90,8 @@
  	}
  
--	*pos++ = num;
+ 	*pos++ = num;
 -	for (i = 0, count = 0; i < hapd->iface->num_rates && count < num;
-+	*pos++ = num;	
 +	i = get_ratelimit_config_2g(hapd->iconf->channel);
 +	for (count = 0; i < hapd->iface->num_rates && count < num;
  	     i++) {
  		count++;
  		*pos = hapd->iface->current_rates[i].rate / 5;
+@@ -102,10 +130,12 @@
+ 	if (num <= 8)
+ 		return eid;
+ 	num -= 8;
++	num -= get_ratelimit_config_2g(hapd->iconf->channel);
+ 
+ 	*pos++ = WLAN_EID_EXT_SUPP_RATES;
+ 	*pos++ = num;
+-	for (i = 0, count = 0; i < hapd->iface->num_rates && count < num + 8;
++	i = get_ratelimit_config_2g(hapd->iconf->channel);
++	for (count = 0; i < hapd->iface->num_rates && count < num + 8;
+ 	     i++) {
+ 		count++;
+ 		if (count <= 8)
